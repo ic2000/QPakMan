@@ -1,0 +1,18 @@
+Usage:\n
+  qpakman [-option...] files -o output.pak\n
+  qpakman [-option...] images -o output.wad\n
+  qpakman [-option...] input.pak/wad -o dir\n
+\n
+Options:\n
+  -l  -list        List contents of pak/wad file\n
+  -e  -extract     Extract pak/wad contents into output dir\n
+  -m  -maketex     Make a texture wad from bsp files\n\n
+  -c  -colors XXX  Load color palette from given file\n
+  -g  -game   XXX  Select game (quake1, quake2, hexen2)\n
+  -f  -force       Overwrite existing files when extracting\n
+  -p  -pic         Create pic format images in the wad\n
+  -r  -raw         Do not convert anything\n 
+\n
+This program is free software, under the terms of the GNU General\n
+Public License, and comes with ABSOLUTELY NO WARRANTY. See the\n
+accompanying documentation for more details. USE AT OWN RISK.\n\n
