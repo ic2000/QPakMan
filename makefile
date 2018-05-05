@@ -17,7 +17,7 @@
 CC=gcc
 CFLAGS=-c -I./include -std=gnu11 -Wall -Wextra -Wno-unused-variable -Wno-missing-field-initializers
 
-OBJECTS=qpakman.o argparse.o file.o
+OBJECTS=qpakman.o argparse.o file.o pak.o
 
 qpakman: $(OBJECTS)
 	$(CC) -Wall -Wextra -o qpakman $(OBJECTS)
@@ -30,6 +30,9 @@ argparse.o: src/argparse.c
 
 file.o: src/file.c
 	$(CC) $(CFLAGS) src/file.c
+
+pak.o: src/pak.c
+	$(CC) $(CFLAGS) src/pak.c
 
 clean:
 	rm qpakman $(OBJECTS)

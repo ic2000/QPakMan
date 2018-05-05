@@ -4,6 +4,7 @@
     "stdio.h": "c",
     "headers.h": "c",
     "stdbool.h": "c",
-    "file.h": "c"
+    "file.h": "c",
+    "string.h": "c"
   }
 }

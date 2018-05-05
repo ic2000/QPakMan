@@ -16,21 +16,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef HEADERS_H
-#define HEADERS_H
+#ifndef PAK_H
+#define PAK_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <stdint.h>
-#include <string.h>
-#include <ctype.h>
+#include "headers.h"
 
-#define FATAL_ERROR(...) {          \
-  fprintf(stderr, "FATAL ERROR: "); \
-  fprintf(stderr, __VA_ARGS__);     \
-  fprintf(stderr, "\n");            \
-  exit(EXIT_FAILURE);               \
-}
+#define PAK_MAGIC  "PACK"
 
-#endif /* HEADERS_H */
+// pak structures
+typedef struct
+{
+  char magic[4];
+  uint32_t dir_start;
+  uint32_t entry_num;
+} raw_pak_header_t;
+
+typedef struct
+{
+  char name[56];
+  uint32_t offset;
+  uint32_t length;
+} raw_pak_entry_t;
+
+typedef struct {
+  FILE *r_pak_fp;
+  raw_pak_header_t r_header;
+  raw_pak_entry_t * r_directory;
+} pak_t;
+
+// pak reading
+bool open_pak(pak_t *pak, const char *filename);
+
+#endif // PAK_H

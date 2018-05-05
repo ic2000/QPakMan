@@ -19,6 +19,7 @@
 #include "headers.h"
 #include "argparse.h"
 #include "file.h"
+#include "pak.h"
 
 #define VERSION "0.1"
 
@@ -32,7 +33,12 @@ void list(int argc, char **argv) {
   const char *filename = argv[0];
 
   if (check_file_ext(filename, "pak")) {
+    pak_t pak;
     
+    if (!open_pak(&pak, filename)) {
+      FATAL_ERROR("Could not open PAK file: %s\n", filename);
+    
+    }
   } else if (check_file_ext(filename, "wad")) {
 
   } else

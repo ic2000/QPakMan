@@ -16,21 +16,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef HEADERS_H
-#define HEADERS_H
+#include "file.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <stdint.h>
-#include <string.h>
-#include <ctype.h>
-
-#define FATAL_ERROR(...) {          \
-  fprintf(stderr, "FATAL ERROR: "); \
-  fprintf(stderr, __VA_ARGS__);     \
-  fprintf(stderr, "\n");            \
-  exit(EXIT_FAILURE);               \
+const char *get_file_ext(const char *filename) {
+  const char *dot = strrchr(filename, '.');
+  if (!dot || dot == filename)
+    return "";
+  return dot+1;
 }
 
-#endif /* HEADERS_H */
+bool check_file_ext(const char *filename, const char *ext) { 
+  const char *file_ext = get_file_ext(filename);
+  for (size_t i = 0;; i++) {
+    if (!file_ext[i])
+      return !ext[i];
+
+    if (tolower(file_ext[i]) != tolower(ext[i]))
+      return false;
+  }
+  
+  return true;
+}
