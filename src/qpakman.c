@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2018  Koz Ross <koz.ross@retro-freedom.nz>
- * Copyright (C) 2018  ic2000 <ic2000@fix-my-email-please.uk>
+ * Copyright (C) 2018  ic2000 <ic2000@live.co.uk>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,16 +15,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #include "headers.h"
 #include "argparse.h"
+#include "file.h"
 
-#define VERSION "0.67"
-#define TITLE "\n**** QPAKMAN v" VERSION " (C) 2008 Andrew Apted ****\n"
-#define LICENSE "\nThis program is free software, under the terms of the GNU General\n" \
-                "Public License, and comes with ABSOLUTELY NO WARRANTY. See the\n"    \
-                "accompanying documentation for more details. USE AT OWN RISK."
+#define VERSION "0.1"
 
-void list(int argc, const char **argv) {
+void list(int argc, char **argv) {
   if (argc == 0) {
     FATAL_ERROR("Missing input file to list\n");
   } else if (argc > 1) {
@@ -32,9 +30,16 @@ void list(int argc, const char **argv) {
   }
 
   const char *filename = argv[0];
+
+  if (check_file_ext(filename, "pak")) {
+    
+  } else if (check_file_ext(filename, "wad")) {
+
+  } else
+    FATAL_ERROR("Unknown input file format: %s\n", filename);
 }
 
-void extract(int argc, const char **argv) {
+void extract(int argc, char **argv, char *output) {
   if (argc == 0) {
     FATAL_ERROR("Missing input file to extract\n");
   } else if (argc > 1) {
@@ -44,45 +49,49 @@ void extract(int argc, const char **argv) {
   const char *filename = argv[0];
 }
 
-void maketex(int argc, const char **argv) {
+void maketex(int argc, char **argv, char *output) {
   if (argc == 0)
     FATAL_ERROR("Missing input files for maketex\n");
 }
 
-int main(int argc, const char **argv) {
-  puts(TITLE);
+void create(int argc, char **argv, char *output) {
+
+}
+
+int main(int argc, char **argv) {
   const char *usage[] = {
-    "qpakman  [OPTIONS...]  FILES...",
-    "qpakman  [OPTIONS...]  IMAGES..",
-    "qpakman  [OPTIONS...]  INPUT.pak/wad",
+    "qpakman [options] files -o output.pak",
+    "qpakman [options] images -o output.wad",
+    "qpakman [options] input.{pak,wad} -o dir",
     NULL,
   };
-  char *opt_output = NULL;
+  char *output = NULL;
   int opt_list = 0;
   int opt_extract = 0;
   int opt_maketex = 0;
   struct argparse_option options[] = {
-    OPT_HELP(),
-    OPT_STRING('o', "output", &opt_output, "specify output name or dir"),
-    OPT_BOOLEAN('l', "list", &opt_list, "list contents of PAK/WAD file"),
-    OPT_BOOLEAN('e', "extract", &opt_extract, "extract PAK/WAD contents into current dir"),
-    OPT_BOOLEAN('m', "maketex", &opt_maketex, "make a texture WAD from BSP files"),
+    // OPT_HELP(),
+    OPT_STRING('o', "output", &output, "specify output name/dir"),
+    OPT_BOOLEAN('l', "list", &opt_list, "list contents of pak/wad file"),
+    OPT_BOOLEAN('e', "extract", &opt_extract, "extract pak/wad contents into output dir"),
+    OPT_BOOLEAN('m', "maketex", &opt_maketex, "make a texture wad from bsp files"),
     OPT_END()
   };
   struct argparse argparse;
   argparse_init(&argparse, options, usage, 0);
-  argparse_describe(&argparse, NULL, LICENSE);
+  argparse_describe(&argparse, NULL, NULL);
   argc = argparse_parse(&argparse, argc, argv);
 
-  if (opt_list) {
+  if (opt_list)
     list(argc, argv);
-  } else if (opt_extract) {
-    extract(argc, argv);
-  } else if (opt_maketex) {
-    maketex(argc, argv);
-  } else { // need to implement ACT_Create
+  else if (opt_extract)
+    extract(argc, argv, output);
+  else if (opt_maketex)
+    maketex(argc, argv, output);
+  else if (output)
+    create(argc, argv, output);
+  else
     argparse_usage(&argparse);
-  }
 
   return EXIT_SUCCESS;
 }

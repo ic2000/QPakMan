@@ -1,5 +1,5 @@
 # Copyright (C) 2018  Koz Ross <koz.ross@retro-freedom.nz>
-# Copyright (C) 2018  ic2000 <ic2000@fix-my-email-please.uk>
+# Copyright (C) 2018  ic2000 <ic2000@live.co.uk>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -13,19 +13,23 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-CC=gcc
-MY_CFLAGS=-c -I./include -std=gnu11 -Wall -Wextra -Wno-unused-variable -Wno-missing-field-initializers
 
-OBJECTS=qpakman.o argparse.o
+CC=gcc
+CFLAGS=-c -I./include -std=gnu11 -Wall -Wextra -Wno-unused-variable -Wno-missing-field-initializers
+
+OBJECTS=qpakman.o argparse.o file.o
 
 qpakman: $(OBJECTS)
 	$(CC) -Wall -Wextra -o qpakman $(OBJECTS)
 	
 qpakman.o: src/qpakman.c
-	$(CC) $(MY_CFLAGS) src/qpakman.c
+	$(CC) $(CFLAGS) src/qpakman.c
 
 argparse.o: src/argparse.c
-	$(CC) $(MY_CFLAGS) src/argparse.c
-	
+	$(CC) $(CFLAGS) src/argparse.c
+
+file.o: src/file.c
+	$(CC) $(CFLAGS) src/file.c
+
 clean:
 	rm qpakman $(OBJECTS)

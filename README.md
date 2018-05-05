@@ -1,26 +1,22 @@
-# QPakMan
+# QPakMan 0.1
 
-This is a WIP loader for .pak files.
+This is a WIP loader for .pak and .wad files.
 
 # How to use
 
 ```
-  qpakman [OPTION...] files -o output.pak
-  qpakman [OPTION...] images -o output.wad
-  qpakman [OPTION...] input.{pak,wad} -o dir
+  qpakman [options] files -o output.pak
+  qpakman [options] images -o output.wad
+  qpakman [options] input.{pak,wad} -o dir
 ```
 
 Options:
 
 ```
-  -l  --list          List contents of pak/wad file
-  -e  --extract       Extract pak/wad contents into output dir
-  -m  --maketex       Make a texture wad from bsp files
-  -c  --colors=FILE   Load a colour palette from FILE
-  -g  --game=GAME     Select game (one of 'quake1', 'quake2', 'hexen2')
-  -f  --force         Overwrite existing files when extracting
-  -p  --pic           Create pic format images in the wad
-  -r  --raw           Do not convert anything
+  -o, --output=<str>    specify output name/dir
+  -l, --list            list contents of pak/wad file
+  -e, --extract         extract pak/wad contents into output dir
+  -m, --maketex         make a texture wad from bsp files
 ```
 
 # License

@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2018  Koz Ross <koz.ross@retro-freedom.nz>
- * Copyright (C) 2018  ic2000 <ic2000@fix-my-email-please.uk>
+ * Copyright (C) 2018  ic2000 <ic2000@live.co.uk>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,12 @@
 
 #ifndef HEADERS_H
 #define HEADERS_H
+
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+#include <ctype.h>
 
 #define FATAL_ERROR(...) {          \
   fprintf(stderr, "FATAL ERROR: "); \

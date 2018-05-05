@@ -1,6 +1,9 @@
 {
   "C_Cpp.intelliSenseEngineFallback": "Enabled",
   "files.associations": {
-    "stdio.h": "c"
+    "stdio.h": "c",
+    "headers.h": "c",
+    "stdbool.h": "c",
+    "file.h": "c"
   }
 }
