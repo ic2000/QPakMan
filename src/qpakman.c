@@ -35,10 +35,11 @@ void list(int argc, char **argv) {
   if (check_file_ext(filename, "pak")) {
     pak_t pak;
     
-    if (!open_pak(&pak, filename)) {
+    if (!open_pak(&pak, filename))
       FATAL_ERROR("Could not open PAK file: %s\n", filename);
-    
-    }
+
+    list_pak_entries(&pak);
+    close_pak(&pak);
   } else if (check_file_ext(filename, "wad")) {
 
   } else

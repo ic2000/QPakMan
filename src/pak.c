@@ -86,7 +86,20 @@ bool open_pak(pak_t *pak, const char *filename) {
 
 void close_pak(pak_t *pak) {
   fclose(pak->r_pak_fp);
-  fprintf("Closed PAK file\n");
+  printf("Closed PAK file\n");
   free(pak->r_directory);
   pak->r_directory = NULL;
+}
+
+void list_pak_entries(pak_t *pak) {
+  printf("--------------------------------------------------\n");
+  if (pak->r_header.entry_num == 0)
+    printf("PAK file is empty\n");
+  else
+    for (int i = 0; i < (int)pak->r_header.entry_num; i++) {
+      raw_pak_entry_t *E = &pak->r_directory[i];
+      printf("%4d: +%08x %08x : %s\n", i+1, E->offset, E->length, E->name);
+    }
+
+  printf("--------------------------------------------------\n");
 }

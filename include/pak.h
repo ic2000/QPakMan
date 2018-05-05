@@ -46,5 +46,7 @@ typedef struct {
 
 // pak reading
 bool open_pak(pak_t *pak, const char *filename);
+void close_pak(pak_t *pak);
+void list_pak_entries(pak_t *pak);
 
 #endif // PAK_H
