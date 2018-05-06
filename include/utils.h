@@ -16,36 +16,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PAK_H
-#define PAK_H
+#ifndef UTILS_H
+#define UTILS_H
 
-#include "utils.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include <stdbool.h>
+#include <string.h>
 
-#define PAK_MAGIC "PACK"
-#define PAK_NAME_LEN 56
+#define FATAL_ERROR(...) {          \
+  fprintf(stderr, "FATAL ERROR: "); \
+  fprintf(stderr, __VA_ARGS__);     \
+  fprintf(stderr, "\n");            \
+  exit(EXIT_FAILURE);               \
+}
 
-// pak structures
-typedef struct {
-  char magic[4];
-  uint32_t dir_start;
-  uint32_t entry_num;
-} raw_pak_header_t;
+enum {
+  CMP_NONE = 0,
+  CMP_LZSS = 1
+};
 
-typedef struct {
-  char name[PAK_NAME_LEN];
-  uint32_t offset;
-  uint32_t length;
-} raw_pak_entry_t;
+enum {
+  TYP_NONE = 0,
+  TYP_LABEL = 1,
+  TYP_PALETTE = 64,
+  TYP_QTEX = 65,
+  TYP_QPIC = 66,
+  TYP_SOUND = 67,
+  TYP_MIPTEX = 68,
+  TYP_COMPRESSED = 256
+};
 
-typedef struct {
-  FILE *r_fp;
-  raw_pak_header_t r_header;
-  raw_pak_entry_t *r_directory;
-} pak_t;
+char letter_for_type(uint8_t type);
 
-// pak reading
-bool open_pak(pak_t *pak, const char *filename);
-void close_pak(pak_t *pak);
-void list_pak_entries(pak_t *pak);
-
-#endif // PAK_H
+#endif // UTILS_H

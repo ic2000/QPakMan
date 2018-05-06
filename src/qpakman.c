@@ -16,10 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "headers.h"
+#include "utils.h"
 #include "argparse.h"
 #include "file.h"
 #include "pak.h"
+#include "wad.h"
 
 #define VERSION "0.1"
 
@@ -41,7 +42,13 @@ void list(int argc, char **argv) {
     list_pak_entries(&pak);
     close_pak(&pak);
   } else if (check_file_ext(filename, "wad")) {
+    wad2_t wad;
+    
+    if (!open_wad(&wad, filename))
+      FATAL_ERROR("Could not open WAD2 file: %s\n", filename);
 
+    list_wad_entries(&wad);
+    close_wad(&wad);
   } else
     FATAL_ERROR("Unknown input file format: %s\n", filename);
 }

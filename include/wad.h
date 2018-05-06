@@ -16,21 +16,41 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef HEADERS_H
-#define HEADERS_H
+#ifndef WAD_H
+#define WAD_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <stdint.h>
-#include <string.h>
-#include <ctype.h>
+#include "utils.h"
 
-#define FATAL_ERROR(...) {          \
-  fprintf(stderr, "FATAL ERROR: "); \
-  fprintf(stderr, __VA_ARGS__);     \
-  fprintf(stderr, "\n");            \
-  exit(EXIT_FAILURE);               \
-}
+#define WAD2_MAGIC "WAD2"
+#define WAD_NAME_LEN 16
 
-#endif /* HEADERS_H */
+// wad2 structures
+typedef struct
+{
+  char magic[4];
+  uint32_t num_lumps;
+  uint32_t dir_start;
+} raw_wad2_header_t;
+
+typedef struct {
+  uint32_t start;
+  uint32_t length; // compressed
+  uint32_t u_len; // uncompressed
+  uint8_t type;
+  uint8_t compression;
+  uint8_t _pad[2];
+  char name[16]; // must be null terminated
+} raw_wad2_lump_t;
+
+typedef struct {
+  FILE *r_fp;
+  raw_wad2_header_t r_header;
+  raw_wad2_lump_t *r_dir;
+} wad2_t;
+
+// wad reading
+bool open_wad(wad2_t *wad, const char *filename);
+void close_wad(wad2_t *wad);
+void list_wad_entries(wad2_t *wad);
+
+#endif // WAD_H

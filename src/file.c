@@ -17,6 +17,7 @@
  */
 
 #include "file.h"
+#include <ctype.h>
 
 const char *get_file_ext(const char *filename) {
   const char *dot = strrchr(filename, '.');
@@ -34,6 +35,4 @@ bool check_file_ext(const char *filename, const char *ext) {
     if (tolower(file_ext[i]) != tolower(ext[i]))
       return false;
   }
-  
-  return true;
 }

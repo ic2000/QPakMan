@@ -15,15 +15,18 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 CC=gcc
-CFLAGS=-c -I./include -std=gnu11 -Wall -Wextra -Wno-unused-variable -Wno-missing-field-initializers
+CFLAGS=-c -I./include -std=c99 -Wall -Wextra -Wno-unused-variable -Wno-missing-field-initializers
 
-OBJECTS=qpakman.o argparse.o file.o pak.o
+OBJECTS=qpakman.o utils.o argparse.o file.o pak.o wad.o
 
 qpakman: $(OBJECTS)
 	$(CC) -Wall -Wextra -o qpakman $(OBJECTS)
 	
 qpakman.o: src/qpakman.c
 	$(CC) $(CFLAGS) src/qpakman.c
+
+utils.o: src/utils.c
+	$(CC) $(CFLAGS) src/utils.c
 
 argparse.o: src/argparse.c
 	$(CC) $(CFLAGS) src/argparse.c
@@ -33,6 +36,9 @@ file.o: src/file.c
 
 pak.o: src/pak.c
 	$(CC) $(CFLAGS) src/pak.c
+
+wad.o: src/wad.c
+	$(CC) $(CFLAGS) src/wad.c
 
 clean:
 	rm qpakman $(OBJECTS)

@@ -17,25 +17,26 @@
  */
 
 #include "pak.h"
+#include "endian.h"
 
 bool open_pak(pak_t *pak, const char *filename) {
-  pak->r_pak_fp = fopen(filename, "rb");
+  pak->r_fp = fopen(filename, "rb");
 
-  if (!pak->r_pak_fp) {
+  if (!pak->r_fp) {
     return false;
   }
 
   printf("Opened PAK file: %s\n", filename);
   
-  if (fread(&pak->r_header, sizeof(pak->r_header), 1, pak->r_pak_fp) != 1) {
+  if (fread(&pak->r_header, sizeof(pak->r_header), 1, pak->r_fp) != 1) {
     printf("PAK_OpenRead: failed reading header\n");
-    fclose(pak->r_pak_fp);
+    fclose(pak->r_fp);
     return false;
   }
 
   if (memcmp(pak->r_header.magic, PAK_MAGIC, 4) != 0) {
     printf("PAK_OpenRead: not a PAK file!\n");
-    fclose(pak->r_pak_fp);
+    fclose(pak->r_fp);
     return false;
   }
 
@@ -46,37 +47,37 @@ bool open_pak(pak_t *pak, const char *filename) {
   // read directory
   if (pak->r_header.entry_num >= 5000) { // sanity check
     printf("PAK_OpenRead: bad header (%d entries?)\n", pak->r_header.entry_num);
-    fclose(pak->r_pak_fp);
+    fclose(pak->r_fp);
     return false;
   }
 
-  if (fseek(pak->r_pak_fp, pak->r_header.dir_start, SEEK_SET) != 0) {
+  if (fseek(pak->r_fp, pak->r_header.dir_start, SEEK_SET) != 0) {
     printf("PAK_OpenRead: cannot seek to directory (at 0x%08x)\n", pak->r_header.dir_start);
-    fclose(pak->r_pak_fp);
+    fclose(pak->r_fp);
     return false;
   }
 
   pak->r_directory = malloc(sizeof(raw_pak_entry_t)*(pak->r_header.entry_num + 1));
 
-  for (int i = 0; i < (int)pak->r_header.entry_num; i++) {
+  for (size_t i = 0; i < pak->r_header.entry_num; i++) {
     raw_pak_entry_t *E = &pak->r_directory[i];
-    int res = fread(E, sizeof(raw_pak_entry_t), 1, pak->r_pak_fp);
+    size_t res = fread(E, sizeof(raw_pak_entry_t), 1, pak->r_fp);
 
-    if (res == EOF || res != 1 || ferror(pak->r_pak_fp)) {
+    if ((int)res == EOF || res != 1 || ferror(pak->r_fp)) {
       if (i == 0) {
         printf("PAK_OpenRead: could not read any dir-entries!\n");
         free(pak->r_directory);
         pak->r_directory = NULL;
-        fclose(pak->r_pak_fp);
+        fclose(pak->r_fp);
         return false;
       }
 
-      printf("PAK_OpenRead: hit EOF reading dir-entry %d\n", i);
+      printf("PAK_OpenRead: hit EOF reading dir-entry %zu\n", i);
       pak->r_header.entry_num = i; // truncate directory
       break;
     }
 
-    E->name[55] = 0; // make sure name is NUL terminated.
+    E->name[PAK_NAME_LEN-1] = '\0'; // make sure name is NUL terminated.
     E->offset = LE_U32(E->offset);
     E->length = LE_U32(E->length);
   }
@@ -85,7 +86,7 @@ bool open_pak(pak_t *pak, const char *filename) {
 }
 
 void close_pak(pak_t *pak) {
-  fclose(pak->r_pak_fp);
+  fclose(pak->r_fp);
   printf("Closed PAK file\n");
   free(pak->r_directory);
   pak->r_directory = NULL;
@@ -96,9 +97,9 @@ void list_pak_entries(pak_t *pak) {
   if (pak->r_header.entry_num == 0)
     printf("PAK file is empty\n");
   else
-    for (int i = 0; i < (int)pak->r_header.entry_num; i++) {
+    for (size_t i = 0; i < pak->r_header.entry_num; i++) {
       raw_pak_entry_t *E = &pak->r_directory[i];
-      printf("%4d: +%08x %08x : %s\n", i+1, E->offset, E->length, E->name);
+      printf("%4zu: +%08x %08x : %s\n", i+1, E->offset, E->length, E->name);
     }
 
   printf("--------------------------------------------------\n");

@@ -2,7 +2,7 @@
   "C_Cpp.intelliSenseEngineFallback": "Enabled",
   "files.associations": {
     "stdio.h": "c",
-    "headers.h": "c",
+    "utils.h": "c",
     "stdbool.h": "c",
     "file.h": "c",
     "string.h": "c"

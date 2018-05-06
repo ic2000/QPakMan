@@ -19,7 +19,7 @@
 #ifndef FILE_H
 #define FILE_H
 
-#include "headers.h"
+#include "utils.h"
 
 const char *get_file_ext(const char *filename);
 bool check_file_ext(const char *filename, const char *ext);
