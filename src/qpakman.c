@@ -61,6 +61,8 @@ void extract(int argc, char **argv, char *output) {
   }
 
   const char *filename = argv[0];
+
+  //if (check_file_ext(filename, "pak"))
 }
 
 void maketex(int argc, char **argv, char *output) {

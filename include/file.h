@@ -21,7 +21,9 @@
 
 #include "utils.h"
 
+// filename functions
 const char *get_file_ext(const char *filename);
 bool check_file_ext(const char *filename, const char *ext);
+// bool change_file_ext(const char *filename, const char *ext);
 
 #endif // FILE_H

@@ -39,7 +39,7 @@ typedef struct {
   uint8_t type;
   uint8_t compression;
   uint8_t _pad[2];
-  char name[16]; // must be null terminated
+  char name[WAD_NAME_LEN]; // must be null terminated
 } raw_wad2_lump_t;
 
 typedef struct {

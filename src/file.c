@@ -36,3 +36,16 @@ bool check_file_ext(const char *filename, const char *ext) {
       return false;
   }
 }
+
+/*
+bool change_file_ext(const char *filename, const char *ext) {
+  size_t filename_len = strlen(filename);
+  char *file_ext = get_file_ext(filename);
+  size_t file_ext_len = strlen(file_ext);
+  size_t ext_len = strlen(ext);
+  char *buff = malloc(strlen(filename) + ((int)ext_len - file_ext_len))
+  memcpy(buff, filename, )
+
+  return true;
+}
+*/

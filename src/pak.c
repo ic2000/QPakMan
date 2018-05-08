@@ -59,9 +59,9 @@ bool open_pak(pak_t *pak, const char *filename) {
 
   pak->r_directory = malloc(sizeof(raw_pak_entry_t)*(pak->r_header.entry_num + 1));
 
-  for (size_t i = 0; i < pak->r_header.entry_num; i++) {
+  for (uint32_t i = 0; i < pak->r_header.entry_num; i++) {
     raw_pak_entry_t *E = &pak->r_directory[i];
-    size_t res = fread(E, sizeof(raw_pak_entry_t), 1, pak->r_fp);
+    uint32_t res = fread(E, sizeof(raw_pak_entry_t), 1, pak->r_fp);
 
     if ((int)res == EOF || res != 1 || ferror(pak->r_fp)) {
       if (i == 0) {
@@ -72,7 +72,7 @@ bool open_pak(pak_t *pak, const char *filename) {
         return false;
       }
 
-      printf("PAK_OpenRead: hit EOF reading dir-entry %zu\n", i);
+      printf("PAK_OpenRead: hit EOF reading dir-entry %u\n", i);
       pak->r_header.entry_num = i; // truncate directory
       break;
     }
@@ -97,9 +97,9 @@ void list_pak_entries(pak_t *pak) {
   if (pak->r_header.entry_num == 0)
     printf("PAK file is empty\n");
   else
-    for (size_t i = 0; i < pak->r_header.entry_num; i++) {
+    for (uint32_t i = 0; i < pak->r_header.entry_num; i++) {
       raw_pak_entry_t *E = &pak->r_directory[i];
-      printf("%4zu: +%08x %08x : %s\n", i+1, E->offset, E->length, E->name);
+      printf("%4u: +%08x %08x : %s\n", i+1, E->offset, E->length, E->name);
     }
 
   printf("--------------------------------------------------\n");

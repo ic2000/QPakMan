@@ -99,8 +99,7 @@ void list_wad_entries(wad2_t *wad) {
   else {
     for (size_t i = 0; i < wad->r_header.num_lumps; i++) {
       raw_wad2_lump_t *L = &wad->r_dir[i];
-      printf("%4zu: +%08x %08x %c : %s\n", i+1, L->start, L->length,
-        letter_for_type(L->type), L->name);
+      printf("%4zu: +%08x %08x %c : %s\n", i+1, L->start, L->length, letter_for_type(L->type), L->name);
     }
   }
 

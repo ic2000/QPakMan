@@ -1,0 +1,32 @@
+[
+  {
+    "directory": "/cygdrive/d/projects/QPakMan/builddir",
+    "command": "cc  -Isrc/qpakman@exe -Isrc -I../src -Iinclude -I../include -fdiagnostics-color=always -pipe -Wall -Winvalid-pch -O0 -g -MD -MQ 'src/qpakman@exe/qpakman.c.o' -MF 'src/qpakman@exe/qpakman.c.o.d' -o 'src/qpakman@exe/qpakman.c.o' -c ../src/qpakman.c",
+    "file": "../src/qpakman.c"
+  },
+  {
+    "directory": "/cygdrive/d/projects/QPakMan/builddir",
+    "command": "cc  -Isrc/qpakman@exe -Isrc -I../src -Iinclude -I../include -fdiagnostics-color=always -pipe -Wall -Winvalid-pch -O0 -g -MD -MQ 'src/qpakman@exe/utils.c.o' -MF 'src/qpakman@exe/utils.c.o.d' -o 'src/qpakman@exe/utils.c.o' -c ../src/utils.c",
+    "file": "../src/utils.c"
+  },
+  {
+    "directory": "/cygdrive/d/projects/QPakMan/builddir",
+    "command": "cc  -Isrc/qpakman@exe -Isrc -I../src -Iinclude -I../include -fdiagnostics-color=always -pipe -Wall -Winvalid-pch -O0 -g -MD -MQ 'src/qpakman@exe/argparse.c.o' -MF 'src/qpakman@exe/argparse.c.o.d' -o 'src/qpakman@exe/argparse.c.o' -c ../src/argparse.c",
+    "file": "../src/argparse.c"
+  },
+  {
+    "directory": "/cygdrive/d/projects/QPakMan/builddir",
+    "command": "cc  -Isrc/qpakman@exe -Isrc -I../src -Iinclude -I../include -fdiagnostics-color=always -pipe -Wall -Winvalid-pch -O0 -g -MD -MQ 'src/qpakman@exe/file.c.o' -MF 'src/qpakman@exe/file.c.o.d' -o 'src/qpakman@exe/file.c.o' -c ../src/file.c",
+    "file": "../src/file.c"
+  },
+  {
+    "directory": "/cygdrive/d/projects/QPakMan/builddir",
+    "command": "cc  -Isrc/qpakman@exe -Isrc -I../src -Iinclude -I../include -fdiagnostics-color=always -pipe -Wall -Winvalid-pch -O0 -g -MD -MQ 'src/qpakman@exe/pak.c.o' -MF 'src/qpakman@exe/pak.c.o.d' -o 'src/qpakman@exe/pak.c.o' -c ../src/pak.c",
+    "file": "../src/pak.c"
+  },
+  {
+    "directory": "/cygdrive/d/projects/QPakMan/builddir",
+    "command": "cc  -Isrc/qpakman@exe -Isrc -I../src -Iinclude -I../include -fdiagnostics-color=always -pipe -Wall -Winvalid-pch -O0 -g -MD -MQ 'src/qpakman@exe/wad.c.o' -MF 'src/qpakman@exe/wad.c.o.d' -o 'src/qpakman@exe/wad.c.o' -c ../src/wad.c",
+    "file": "../src/wad.c"
+  }
+]
