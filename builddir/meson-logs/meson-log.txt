@@ -1,4 +1,4 @@
-Build started at 2018-05-08T01:53:21.785360
+Build started at 2018-05-08T02:06:22.468976
 Main binary: /usr/bin/python3
 Python system: CYGWIN_NT-6.1
 The Meson build system
@@ -7,16 +7,6 @@ Source dir: /cygdrive/d/projects/QPakMan
 Build dir: /cygdrive/d/projects/QPakMan/builddir
 Build type: native build
 Project name: QPakMan
-Sanity testing C compiler: cc
-Is cross compiler: False.
-Sanity check compiler command line: cc /cygdrive/d/projects/QPakMan/builddir/meson-private/sanitycheckc.c -o /cygdrive/d/projects/QPakMan/builddir/meson-private/sanitycheckc.exe
-Sanity check compile stdout:
-
------
-Sanity check compile stderr:
-
------
-Running test binary command: /cygdrive/d/projects/QPakMan/builddir/meson-private/sanitycheckc.exe
 Native C compiler: cc (gcc 6.4.0 "cc (GCC) 6.4.0")
 Build machine cpu family: x86_64
 Build machine cpu: x86_64
